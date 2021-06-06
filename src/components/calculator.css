@@ -6,6 +6,14 @@
   flex-direction: column;
   background: #fff;
 }
+.calculatorParentDark {
+  border: 1px solid white;
+  width: 480px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background: black;
+}
 .display {
   height: 50px;
   border-bottom: 1px solid black;
@@ -14,6 +22,17 @@
   justify-content: right;
   align-items: center;
   max-width: 100%;
+}
+.displayDark {
+  height: 50px;
+  border-bottom: 1px solid white;
+  flex-direction: row-reverse;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  max-width: 100%;
+  background: black;
+  color: white;
 }
 
 .display__span {
@@ -30,9 +49,26 @@
   align-items: center;
 }
 
+.buttonDesignDark {
+  background: #666;
+  color: #fff;
+  border-right: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .calculatorRow {
   min-height: 50px;
   border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.calculatorRowDark {
+  min-height: 50px;
+  border-bottom: 1px solid white;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

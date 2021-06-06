@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import Display from "./Display";
+import Theme from "./Theme";
 import {
   simpleCalculatorButtons,
   modifyLayoutButtons,
   scientificButtons,
 } from "../Constants/CalculatorConstants";
 import "./calculator.css";
-function CalculatorComponent() {
+
+function CalculatorComponent({ setTheme, isDarkTheme }) {
   const [currentStack, setCurrentStack] = useState([]);
-  const [scientificModeFlag, setSceintificModeFlag] = useState(false);
+  const [scientificModeFlag, setScientificModeFlag] = useState(false);
 
   const renderSimpleCalculatorRow = (array, callback = () => {}) => {
     //this method is helpful when you have same callback for every button of that row.
     // as that case is not common, so I have not created it as a separate component
     return (
-      <div className="calculatorRow">
+      <div className={`calculatorRow${isDarkTheme ? "Dark" : ""}`}>
         {Array.isArray(array) &&
           array.map((item, index) => (
             <Button rowElements={array.length} onClick={callback}>
@@ -35,7 +37,11 @@ function CalculatorComponent() {
 
   const layoutModifiers = (button) => {
     if (button === "Scientific Mode") {
-      setSceintificModeFlag(!scientificModeFlag);
+      setScientificModeFlag(!scientificModeFlag);
+    } else if (button === "Dark Theme") {
+      setTheme("Dark");
+    } else {
+      setTheme("Light");
     }
   };
 
@@ -65,7 +71,7 @@ function CalculatorComponent() {
     const operator = input[input.length - 2];
     const len = currentStack.length;
     let temp = [...currentStack];
-    if (len == 0) {
+    if (len === 0) {
       alert("please give an operand first");
       return;
     }
@@ -119,7 +125,7 @@ function CalculatorComponent() {
   return (
     <div style={{ marginTop: "100px" }}>
       <div
-        className="calculatorParent"
+        className={`calculatorParent${isDarkTheme ? "Dark" : ""}`}
         style={{ height: `${scientificModeFlag ? 50 * 7 : 300}px` }}
       >
         <Display val={currentStack[2] || currentStack[0]} />
@@ -133,4 +139,4 @@ function CalculatorComponent() {
   );
 }
 
-export default CalculatorComponent;
+export default Theme(CalculatorComponent);

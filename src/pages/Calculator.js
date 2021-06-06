@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import CalculatorComponent from "../components/CalculatorComponent";
+import { ThemeContext } from "../Contexts/index";
 function Calculator() {
+  const themeContextHook = useState("Light");
   return (
-    <div>
-      <CalculatorComponent />
-    </div>
+    <ThemeContext.Provider value={themeContextHook}>
+      <div>
+        <CalculatorComponent />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
