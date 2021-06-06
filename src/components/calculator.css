@@ -1,0 +1,39 @@
+.calculatorParent {
+  border: 1px solid black;
+  width: 480px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.display {
+  height: 50px;
+  border-bottom: 1px solid black;
+  flex-direction: row-reverse;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  max-width: 100%;
+}
+
+.display__span {
+  max-width: 100%;
+  padding-right: 2px;
+}
+
+.buttonDesign {
+  background: #f0f0f0;
+  color: #000;
+  border-right: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calculatorRow {
+  min-height: 50px;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
