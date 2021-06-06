@@ -5,9 +5,7 @@ function Calculator() {
   const themeContextHook = useState("Light");
   return (
     <ThemeContext.Provider value={themeContextHook}>
-      <div>
-        <CalculatorComponent />
-      </div>
+      <CalculatorComponent />
     </ThemeContext.Provider>
   );
 }
