@@ -50,9 +50,11 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     const len = currentStack.length;
     const temp = [...currentStack];
     if (!len || isNaN(currentStack[len - 1])) {
-      temp.push(num);
+      temp.push(num + "");
     } else {
-      temp[len - 1] = temp[len - 1] + "" + num;
+      if (temp[len - 1].length <= 32) {
+        temp[len - 1] = temp[len - 1] + "" + num;
+      }
     }
     setCurrentStack(temp);
     setDisplayValue(temp[temp.length - 1]);
@@ -116,7 +118,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     } else if (button === "Square") {
       tempDisplayValue = tempDisplayValue * tempDisplayValue + "";
     } else {
-      tempDisplayValue = Math.sqrt(tempDisplayValue);
+      tempDisplayValue = Math.sqrt(tempDisplayValue) + "";
     }
 
     setDisplayValue(tempDisplayValue);
