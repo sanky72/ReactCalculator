@@ -87,6 +87,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
       } else {
         const ans = eval(temp.join(""));
         temp = [ans, operator];
+        setDisplayValue(ans);
       }
     }
     setCurrentStack(temp);
