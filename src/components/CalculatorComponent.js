@@ -131,7 +131,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
         className={`calculatorParent${isDarkTheme ? "Dark" : ""}`}
         style={{ height: `${scientificModeFlag ? 50 * 7 : 300}px` }}
       >
-        <Display val={displayValue} />
+        <Display val={displayValue + ""} />
         {renderSimpleCalculatorRow(modifyLayoutButtons, layoutModifiers)}
         {scientificModeFlag && scientificBlock()}
         {simpleCalculatorButtons.map((item) =>
