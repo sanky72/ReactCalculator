@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import Display from "./Display";
 import Theme from "./Theme";
@@ -60,14 +60,10 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
 
   const equalToButtonHandler = () => {
     const len = currentStack.length;
-    let temp = [...currentStack];
     if (len === 3) {
-      const ans = eval(temp.join(""));
-      temp = [ans];
+      const ans = eval(currentStack.join(""));
       setCurrentStack([]);
       setDisplayValue(ans);
-    } else {
-      alert("not enough elements");
     }
   };
 
@@ -76,7 +72,10 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     const len = currentStack.length;
     let temp = [...currentStack];
     if (len === 0) {
-      alert("please give an operand first");
+      if (displayValue !== undefined) {
+        temp = [displayValue, operator];
+        setCurrentStack(temp);
+      }
       return;
     }
     if (isNaN(temp[len - 1])) {
