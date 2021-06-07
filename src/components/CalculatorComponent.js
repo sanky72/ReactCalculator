@@ -12,6 +12,7 @@ import "./calculator.css";
 function CalculatorComponent({ setTheme, isDarkTheme }) {
   const [currentStack, setCurrentStack] = useState([]);
   const [scientificModeFlag, setScientificModeFlag] = useState(false);
+  const [displayValue, setDisplayValue] = useState(0);
 
   const renderSimpleCalculatorRow = (array, callback = () => {}) => {
     //this method is helpful when you have same callback for every button of that row.
@@ -54,6 +55,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
       temp[len - 1] = temp[len - 1] + "" + num;
     }
     setCurrentStack(temp);
+    setDisplayValue(temp[temp.length - 1]);
   };
 
   const equalToButtonHandler = () => {
@@ -62,11 +64,13 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     if (len === 3) {
       const ans = eval(temp.join(""));
       temp = [ans];
-      setCurrentStack(temp);
+      setCurrentStack([]);
+      setDisplayValue(ans);
     } else {
       alert("not enough elements");
     }
   };
+
   const operatorInputHandler = (input) => {
     const operator = input[input.length - 2];
     const len = currentStack.length;
@@ -87,6 +91,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     }
     setCurrentStack(temp);
   };
+
   const calculatorButtonsCallback = (button) => {
     const isNumber = !isNaN(button);
     if (isNumber) {
@@ -94,6 +99,7 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
     } else {
       if (button === "Clear") {
         setCurrentStack([]);
+        setDisplayValue(0);
       } else if (button === "=") {
         equalToButtonHandler();
       } else {
@@ -101,34 +107,29 @@ function CalculatorComponent({ setTheme, isDarkTheme }) {
       }
     }
   };
-  const scientificButtonsCallback = (button) => {
-    const len = currentStack.length;
-    const temp = [...currentStack];
-    if (!len) {
-      alert(`to ${button} please give an operand`);
-    } else if (isNaN(currentStack[len - 1])) {
-      alert(
-        "your previous click was a operator, please give an operand as the input"
-      );
-    } else {
-      if (button === "Sign") {
-        temp[len - 1] = -1 * temp[len - 1] + "";
-      } else if (button === "Square") {
-        temp[len - 1] = temp[len - 1] * temp[len - 1] + "";
-      } else {
-        temp[len - 1] = Math.sqrt(temp[len - 1]);
-      }
 
-      setCurrentStack(temp);
+  const scientificButtonsCallback = (button) => {
+    let tempDisplayValue = displayValue;
+
+    if (button === "Sign") {
+      tempDisplayValue = -1 * tempDisplayValue + "";
+    } else if (button === "Square") {
+      tempDisplayValue = tempDisplayValue * tempDisplayValue + "";
+    } else {
+      tempDisplayValue = Math.sqrt(tempDisplayValue);
     }
+
+    setDisplayValue(tempDisplayValue);
+    setCurrentStack([]);
   };
+
   return (
     <div style={{ marginTop: "100px" }}>
       <div
         className={`calculatorParent${isDarkTheme ? "Dark" : ""}`}
         style={{ height: `${scientificModeFlag ? 50 * 7 : 300}px` }}
       >
-        <Display val={currentStack[2] || currentStack[0]} />
+        <Display val={displayValue} />
         {renderSimpleCalculatorRow(modifyLayoutButtons, layoutModifiers)}
         {scientificModeFlag && scientificBlock()}
         {simpleCalculatorButtons.map((item) =>
